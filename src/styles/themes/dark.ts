@@ -1,5 +1,7 @@
-const darkTheme = {
-  colors: {
+export default {
+   title: 'dark',
+
+   colors: {
       header: "#3B72E5",
       background: "#0A1929",
       searchInput: "#31BE00",
@@ -12,5 +14,3 @@ const darkTheme = {
       text: "#fff"
    }
 }
-
-export default darkTheme;
