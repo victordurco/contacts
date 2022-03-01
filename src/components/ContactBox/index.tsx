@@ -92,7 +92,7 @@ const Detail = styled.div`
   font-weight: bold;
   background-color: ${(props) => props.theme.colors.infoBox};
   border: 1px solid ${(props) => props.theme.colors.infoBoxBorder};
-  border-radius: 10px;
+  border-radius: 5px;
   display: flex;
   justify-content: start;
   align-items: center;

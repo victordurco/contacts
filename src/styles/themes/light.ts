@@ -10,7 +10,7 @@ export default {
       contactInitials: "#959595",
       infoBox: "#fff",
       infoBoxBorder: "#333",
-      editButton: "#428BE3",
+      editButton: "#333",
       deleteButton: "#940000",
       addButton: "#31BE00",
       text: "#000"
