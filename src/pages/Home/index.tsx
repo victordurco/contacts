@@ -16,7 +16,12 @@ const Home: React.FC<Props> = ({ toggleTheme }) => {
   return (
     <>
       <Header toggleTheme={toggleTheme}>Hello World</Header>
-      <Container>
+      <Content>
+        <ContactBox />
+        <ContactBox />
+        <ContactBox />
+        <ContactBox />
+        <ContactBox />
         <ContactBox />
         <ContactBox />
         <ContactBox />
@@ -26,29 +31,35 @@ const Home: React.FC<Props> = ({ toggleTheme }) => {
         <IconButton>
           <AddButton>+</AddButton>
         </IconButton>
-      </Container>
+      </Content>
     </>
   );
 };
 
 export default Home;
 
-const Container = styled.section`
-  width: 100%;
+const Content = styled.section`
+  width: 390px;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0 auto 60px auto;
 `;
 
 const AddButton = styled.div`
   width: 60px;
   height: 60px;
   font-size: 42px;
+  line-height: 42px;
+  text-align: center;
   border-radius: 50px;
   background-color: ${(props) => props.theme.colors.addButton};
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  bottom: 20px;
+  right: 24px;
 `;
