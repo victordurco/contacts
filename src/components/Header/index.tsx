@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
 
 import ThemeSwitch from './ThemeSwitch';
 
@@ -15,21 +14,10 @@ interface Props {
 const Header: React.FC<Props> = ({ toggleTheme }) => (
   <Container>
     <Wrapper>
-      <Input
-        id="standard-search"
-        label="Procurar contato"
-        type="search"
-        variant="filled"
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton>
-                <SearchIcon />
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-      />
+      <SearchBox>
+        <Icon />
+        <Input placeholder="Pesquisar contato..." />
+      </SearchBox>
       <ThemeSwitch toggleTheme={toggleTheme} />
     </Wrapper>
   </Container>
@@ -47,15 +35,36 @@ const Container = styled.header`
 `;
 
 const Wrapper = styled.div`
-  width: 100%;
-  max-width: 390px;
+  width: 320px;
   height: fit-content;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 30px;
 `;
 
-const Input = styled(TextField)`
+const SearchBox = styled(Box)`
+  height: 30px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
   background-color: ${(props) => props.theme.colors.searchBar};
-  width: 242px;
-  border-radius: 5px;
+  margin-right: 25px;
+`;
+
+const Input = styled(InputBase)`
+  background-color: ${(props) => props.theme.colors.searchBar};
+  width: 220px;
+  height: 30px;
+  border-radius: 10px;
+  padding-left: 10px;
+
+  ::placeholder {
+    pad-left: 10px;
+  }
+`;
+
+const Icon = styled(SearchIcon)`
+  color: #a5a5a5;
+  margin-left: 5px;
 `;

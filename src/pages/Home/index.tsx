@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
-import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
 
 import Header from '../../components/Header';
 import ContactBox from '../../components/ContactBox';
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const Home: React.FC<Props> = ({ toggleTheme }) => {
+  const navigate = useNavigate();
   const [search, setSearch] = useState<string>('');
 
   return (
@@ -28,9 +30,7 @@ const Home: React.FC<Props> = ({ toggleTheme }) => {
         <ContactBox />
         <ContactBox />
         <ContactBox />
-        <IconButton>
-          <AddButton>+</AddButton>
-        </IconButton>
+        <AddButton onClick={() => navigate('/contato')}>+</AddButton>
       </Content>
     </>
   );
@@ -47,14 +47,14 @@ const Content = styled.section`
   margin: 0 auto 60px auto;
 `;
 
-const AddButton = styled.div`
+const AddButton = styled(Box)`
   width: 60px;
   height: 60px;
   font-size: 42px;
   line-height: 42px;
   text-align: center;
   border-radius: 50px;
-  background-color: ${(props) => props.theme.colors.addButton};
+  background: ${(props) => props.theme.colors.addButton};
   color: #fff;
   display: flex;
   justify-content: center;
@@ -62,4 +62,5 @@ const AddButton = styled.div`
   position: fixed;
   bottom: 20px;
   right: 24px;
+  cursor: pointer;
 `;
