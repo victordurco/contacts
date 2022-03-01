@@ -10,6 +10,7 @@ declare module 'styled-components' {
         searchBar: string,
         contactBox: string,
         contactBoxBorder: string,
+        contactInitials: string,
         infoBox: string,
         infoBoxBorder: string,
         editButton: string,

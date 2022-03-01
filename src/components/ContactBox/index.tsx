@@ -64,7 +64,7 @@ const ContactInitials = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 50px;
-  background-color: ${(props) => props.theme.colors.editButton};
+  background-color: ${(props) => props.theme.colors.contactInitials};
   color: #fff;
   font-size: 15px;
   line-height: 15px;

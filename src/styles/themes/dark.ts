@@ -7,6 +7,7 @@ export default {
       searchBar: "#8ea8e0fa",
       contactBox: "#132F4C",
       contactBoxBorder: "#5090D3",
+      contactInitials: "#428BE3",
       infoBox: "#0A1E3C",
       infoBoxBorder: "#0A1E3C",
       editButton: "#428BE3",
