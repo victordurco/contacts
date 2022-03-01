@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -42,10 +43,12 @@ const Container = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 30px;
 `;
 
 const Wrapper = styled.div`
   width: 100%;
+  max-width: 390px;
   height: fit-content;
   display: flex;
   justify-content: space-around;

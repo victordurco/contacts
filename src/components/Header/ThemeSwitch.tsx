@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import styled, { ThemeContext } from 'styled-components';
+
 import Switch from '@mui/material/Switch';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -24,9 +25,7 @@ const ThemeSwitch: React.FC<Props> = ({ toggleTheme }) => {
 };
 export default ThemeSwitch;
 
-const Form = styled(FormGroup)`
-  margin-left: 26px;
-`;
+const Form = styled(FormGroup)``;
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
