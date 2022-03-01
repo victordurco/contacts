@@ -35,6 +35,7 @@ const GlobalStyle = createGlobalStyle`
     body {
     line-height: 1;
     font-family: Roboto, sans-serif;
+    background: ${ props => props.theme.colors.background};
     ::-webkit-scrollbar {
         width: 8px;               
         }

@@ -1,27 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 
-const Header: React.FC = () => (
+import ThemeSwitch from './ThemeSwitch';
+
+interface Props {
+  toggleTheme(): void;
+}
+
+const Header: React.FC<Props> = ({ toggleTheme }) => (
   <Container>
-    <Input
-      id="standard-search"
-      label="Procurar contato"
-      type="search"
-      variant="filled"
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position="end">
-            <IconButton>
-              <SearchIcon />
-            </IconButton>
-          </InputAdornment>
-        ),
-      }}
-    />
+    <Wrapper>
+      <Input
+        id="standard-search"
+        label="Procurar contato"
+        type="search"
+        variant="filled"
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton>
+                <SearchIcon />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+      />
+      <ThemeSwitch toggleTheme={toggleTheme} />
+    </Wrapper>
   </Container>
 );
 export default Header;
@@ -35,8 +44,15 @@ const Container = styled.header`
   align-items: center;
 `;
 
+const Wrapper = styled.div`
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: space-around;
+`;
+
 const Input = styled(TextField)`
-  background-color: #8ea8e0fa;
+  background-color: ${(props) => props.theme.colors.searchBar};
   width: 242px;
   border-radius: 5px;
 `;

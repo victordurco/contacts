@@ -5,16 +5,17 @@ declare module 'styled-components' {
       title: string;
 
       colors: {
-        header: string;
-        background: string;
-        searchInput: string;
-        contactBox: string;
-        contactBoxBorder: string;
-        infoBox: string;
-        boxButton: string;
-        deleteButton: string;
-        addButton: string;
-        text: string;
+        header: string,
+        background: string,
+        searchBar: string,
+        contactBox: string,
+        contactBoxBorder: string,
+        infoBox: string,
+        infoBoxBorder: string,
+        editButton: string,
+        deleteButton: string,
+        addButton: string,
+        text: string
       }
     }
 }

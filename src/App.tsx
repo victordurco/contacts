@@ -1,22 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider, DefaultTheme } from 'styled-components';
 
 import dark from './styles/themes/dark';
+import light from './styles/themes/light';
 
 import GlobalStyle from './styles/GlobalStyle';
 import Home from './pages/Home';
 
-const App: React.FC = () => (
-  <ThemeProvider theme={dark}>
-    <BrowserRouter>
-      <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="*" element={<Home />} />
-      </Routes>
-    </BrowserRouter>
-  </ThemeProvider>
-);
+const App: React.FC = () => {
+  const [theme, setTheme] = useState<DefaultTheme>(dark);
+
+  const toggleTheme = () => {
+    setTheme(theme.title === 'light' ? dark : light);
+  };
+
+  return (
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <GlobalStyle />
+        <Routes>
+          <Route path="/" element={<Home toggleTheme={toggleTheme} />} />
+          <Route path="*" element={<Home toggleTheme={toggleTheme} />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
+  );
+};
 
 export default App;

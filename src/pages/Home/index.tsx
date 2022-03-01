@@ -3,10 +3,14 @@ import styled from 'styled-components';
 
 import Header from '../../components/Header';
 
-const Home: React.FC = () => {
+interface Props {
+  toggleTheme(): void;
+}
+
+const Home: React.FC<Props> = ({ toggleTheme }) => {
   const [search, setSearch] = useState<string>('');
 
-  return <Header>Hello World</Header>;
+  return <Header toggleTheme={toggleTheme}>Hello World</Header>;
 };
 
 export default Home;
