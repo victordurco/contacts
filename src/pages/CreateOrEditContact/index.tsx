@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -49,6 +49,21 @@ const CreateOrEditContact: React.FC = () => {
     if (contactId) editContact();
     else createContact();
   };
+
+  useEffect(() => {
+    if (contactId) {
+      contactApi
+        .getContactInfo(contactId)
+        .then((res) => {
+          setFormData({
+            name: res.data.name,
+            phone: res.data.phone,
+            email: res.data.email,
+          });
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
 
   return (
     <Container>

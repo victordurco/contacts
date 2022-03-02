@@ -13,7 +13,15 @@ export default class ContactApi {
     return api.put(`/contacts/${id}`, body );
   }
 
+  getContactInfo(id: number): Promise<AxiosResponse> {
+    return api.get(`/contacts/${id}`);
+  }
+
   getAllContacts(): Promise<AxiosResponse>  {
     return api.get("/contacts");
+  }
+
+  deleteContact(id: number): Promise<AxiosResponse> {
+    return api.delete(`/contacts/${id}`);
   }
 }

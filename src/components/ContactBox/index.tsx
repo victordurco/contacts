@@ -127,8 +127,9 @@ const Detail = styled.div`
   align-items: center;
   padding: 4px 11px;
   margin-bottom: 8px;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const DetailTitle = styled.span<DetailTitleProps>`
