@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -32,7 +33,13 @@ const CreateOrEditContact: React.FC = () => {
       .then(() => {
         navigate('/');
       })
-      .catch((err) => console.error(err));
+      .catch(() =>
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Tivemos um problema, tente mais tarde',
+        }),
+      );
   };
 
   const editContact = () => {
@@ -41,7 +48,13 @@ const CreateOrEditContact: React.FC = () => {
       .then(() => {
         navigate('/');
       })
-      .catch((err) => console.error(err));
+      .catch(() =>
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Tivemos um problema, tente mais tarde',
+        }),
+      );
   };
 
   const hanldeSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,7 +74,13 @@ const CreateOrEditContact: React.FC = () => {
             email: res.data.email,
           });
         })
-        .catch((err) => console.log(err));
+        .catch(() =>
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Tivemos um problema, tente mais tarde',
+          }),
+        );
     }
   }, []);
 

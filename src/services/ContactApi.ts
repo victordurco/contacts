@@ -24,4 +24,8 @@ export default class ContactApi {
   deleteContact(id: number): Promise<AxiosResponse> {
     return api.delete(`/contacts/${id}`);
   }
+
+  searchContact(name: string): Promise<AxiosResponse> {
+    return api.post('/contacts/search', {name})
+  }
 }

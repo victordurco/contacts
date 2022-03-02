@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { BallTriangle } from 'react-loader-spinner';
+import Swal from 'sweetalert2';
 
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 import Header from '../../components/Header';
 import ContactBox from '../../components/ContactBox';
@@ -22,13 +24,45 @@ const Home: React.FC<Props> = ({ toggleTheme }) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   const loadContactsFromApi = () => {
+    setLoading(true);
     contactApi
       .getAllContacts()
       .then((res) => {
         setContacts(res.data);
         setLoading(false);
       })
-      .catch((err) => console.error(err));
+      .catch(() => {
+        Swal.fire(
+          'Oops...',
+          'Tivemos um problema para buscar contatos, tente mais tarde',
+          'error',
+        );
+        setLoading(false);
+      });
+  };
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value);
+
+    if (event.target.value.length > 1) {
+      setLoading(true);
+      contactApi
+        .searchContact(event.target.value)
+        .then((res) => {
+          setContacts(res.data);
+          setLoading(false);
+        })
+        .catch(() => {
+          Swal.fire(
+            'Oops...',
+            'Tivemos um problema para buscar contatos, tente mais tarde',
+            'error',
+          );
+          setLoading(false);
+        });
+    } else {
+      loadContactsFromApi();
+    }
   };
 
   useEffect(() => {
@@ -37,22 +71,31 @@ const Home: React.FC<Props> = ({ toggleTheme }) => {
 
   return (
     <Container>
-      <Header toggleTheme={toggleTheme} />
+      <Header
+        toggleTheme={toggleTheme}
+        search={search}
+        handleSearchChange={handleSearchChange}
+      />
       <Content>
         {loading ? (
           <LoadingWrapper>
             <BallTriangle color="#3B72E5" height={80} width={80} />
           </LoadingWrapper>
         ) : (
-          contacts.map((contact) => (
-            <ContactBox
-              key={contact.id}
-              id={contact.id}
-              name={contact.name}
-              phone={contact.phone}
-              email={contact.email}
-            />
-          ))
+          <>
+            {contacts.length === 0 && (
+              <NoContacts variant="h4">Nenhum contato</NoContacts>
+            )}
+            {contacts.map((contact) => (
+              <ContactBox
+                key={contact.id}
+                id={contact.id}
+                name={contact.name}
+                phone={contact.phone}
+                email={contact.email}
+              />
+            ))}
+          </>
         )}
         <AddButton onClick={() => navigate('/contato')}>+</AddButton>
       </Content>
@@ -110,4 +153,9 @@ const LoadingWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const NoContacts = styled(Typography)`
+  color: ${(props) => props.theme.colors.text};
+  margin: auto auto;
 `;
