@@ -2,10 +2,10 @@
 import { AxiosResponse } from "axios";
 import api from "./api";
 
-import {Contact} from '../protocols/Contact';
+import {ContactBody} from '../protocols/Contact';
 
 export default class ContactApi {
-  create(body: Contact): Promise<AxiosResponse> {
+  create(body: ContactBody): Promise<AxiosResponse> {
     return api.post("/contacts", body );
   }
 

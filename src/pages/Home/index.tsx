@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Header from '../../components/Header';
 import ContactBox from '../../components/ContactBox';
 import useApi from '../../hooks/useApi';
-import { Contact } from '../../protocols/Contact';
+import { ContactFromApi } from '../../protocols/Contact';
 
 interface Props {
   toggleTheme(): void;
@@ -17,15 +17,19 @@ const Home: React.FC<Props> = ({ toggleTheme }) => {
   const navigate = useNavigate();
   const { contactApi } = useApi();
   const [search, setSearch] = useState<string>('');
-  const [contacts, setContacts] = useState<Contact[]>([]);
+  const [contacts, setContacts] = useState<ContactFromApi[]>([]);
 
-  useEffect(() => {
+  const loadContactsFromApi = () => {
     contactApi
       .getAllContacts()
       .then((res) => {
         setContacts(res.data);
       })
       .catch((err) => console.error(err));
+  };
+
+  useEffect(() => {
+    loadContactsFromApi();
   }, []);
 
   return (

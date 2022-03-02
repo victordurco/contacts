@@ -7,10 +7,36 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Box from '@mui/material/Box';
 
 import ContactForm from '../../components/ContactForm';
+import useApi from '../../hooks/useApi';
+import { ContactBody } from '../../protocols/Contact';
 
 const CreateOrEditContact: React.FC = () => {
   const navigate = useNavigate();
-  const [search, setSearch] = useState<string>('');
+  const { contactApi } = useApi();
+  const [formData, setFormData] = useState<ContactBody>({
+    name: '',
+    phone: '',
+    email: '',
+  });
+
+  const handleChange =
+    (prop: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setFormData({ ...formData, [prop]: event.target.value });
+    };
+
+  const createContact = () => {
+    contactApi
+      .create(formData)
+      .then((res) => {
+        navigate('/');
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const hanldeSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    createContact();
+  };
 
   return (
     <Container>
@@ -20,7 +46,11 @@ const CreateOrEditContact: React.FC = () => {
             <Arrow />
           </IconButton>
         </BackButtonBox>
-        <ContactForm>oiiii</ContactForm>
+        <ContactForm
+          formData={formData}
+          handleChange={handleChange}
+          onSubmit={hanldeSubmit}
+        />
       </Content>
     </Container>
   );
