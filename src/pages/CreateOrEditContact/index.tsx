@@ -76,6 +76,18 @@ const Container = styled.section`
   background-color: ${(props) => props.theme.colors.background};
   display: flex;
   justify-content: center;
+  @keyframes moveInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(300px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translate(0);
+    }
+  }
+  animation: moveInUp 0.4s;
 `;
 
 const Content = styled(Box)`

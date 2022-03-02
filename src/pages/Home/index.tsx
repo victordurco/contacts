@@ -36,7 +36,7 @@ const Home: React.FC<Props> = ({ toggleTheme }) => {
   }, []);
 
   return (
-    <>
+    <Container>
       <Header toggleTheme={toggleTheme} />
       <Content>
         {loading ? (
@@ -56,11 +56,26 @@ const Home: React.FC<Props> = ({ toggleTheme }) => {
         )}
         <AddButton onClick={() => navigate('/contato')}>+</AddButton>
       </Content>
-    </>
+    </Container>
   );
 };
 
 export default Home;
+
+const Container = styled.div`
+  @keyframes moveInDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-300px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translate(0);
+    }
+  }
+  animation: moveInDown 0.4s;
+`;
 
 const Content = styled.section`
   width: 390px;
