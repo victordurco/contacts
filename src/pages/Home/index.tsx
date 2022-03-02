@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,6 +6,8 @@ import Box from '@mui/material/Box';
 
 import Header from '../../components/Header';
 import ContactBox from '../../components/ContactBox';
+import useApi from '../../hooks/useApi';
+import { Contact } from '../../protocols/Contact';
 
 interface Props {
   toggleTheme(): void;
@@ -13,23 +15,26 @@ interface Props {
 
 const Home: React.FC<Props> = ({ toggleTheme }) => {
   const navigate = useNavigate();
+  const { contact } = useApi();
   const [search, setSearch] = useState<string>('');
+  const [contacts, setContacts] = useState<Contact[]>([]);
+
+  useEffect(() => {
+    contact
+      .getAllContacts()
+      .then((res) => {
+        setContacts(res.data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     <>
       <Header toggleTheme={toggleTheme}>Hello World</Header>
       <Content>
-        <ContactBox />
-        <ContactBox />
-        <ContactBox />
-        <ContactBox />
-        <ContactBox />
-        <ContactBox />
-        <ContactBox />
-        <ContactBox />
-        <ContactBox />
-        <ContactBox />
-        <ContactBox />
+        {contacts.map(() => (
+          <ContactBox />
+        ))}
         <AddButton onClick={() => navigate('/contato')}>+</AddButton>
       </Content>
     </>
