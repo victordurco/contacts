@@ -36,6 +36,12 @@
       "react/jsx-filename-extension": [
         0
       ],
-      "import/extensions": "off"
+      "import/extensions": "off",
+      "no-use-before-define": [
+        "error",
+        {
+            "variables": false
+        }
+    ]
     }
 }
