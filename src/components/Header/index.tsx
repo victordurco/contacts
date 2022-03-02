@@ -9,14 +9,24 @@ import ThemeSwitch from './ThemeSwitch';
 
 interface Props {
   toggleTheme(): void;
+  search: string;
+  handleSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Header: React.FC<Props> = ({ toggleTheme }) => (
+const Header: React.FC<Props> = ({
+  toggleTheme,
+  search,
+  handleSearchChange,
+}) => (
   <Container>
     <Wrapper>
       <SearchBox>
         <Icon />
-        <Input placeholder="Pesquisar contato..." />
+        <Input
+          placeholder="Pesquisar contato..."
+          value={search}
+          onChange={handleSearchChange}
+        />
       </SearchBox>
       <ThemeSwitch toggleTheme={toggleTheme} />
     </Wrapper>

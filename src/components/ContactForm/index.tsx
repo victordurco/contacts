@@ -7,20 +7,40 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { TextField } from '@mui/material';
 
+import { ContactBody } from '../../protocols/Contact';
+
+interface FormProps {
+  formData: ContactBody;
+  handleChange: (
+    prop: string,
+  ) => (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
 interface InputProps {
   mask: string;
 }
 
-const ContactForm: React.FC = () => (
-  <Form component="form">
+const ContactForm: React.FC<FormProps> = ({
+  formData,
+  handleChange,
+  onSubmit,
+}) => (
+  <Form component="form" onSubmit={onSubmit}>
     <InputField
       sx={{ mb: 3.5 }}
       variant="filled"
       label="Nome"
       type="text"
+      value={formData.name}
+      onChange={handleChange('name')}
       required
     />
-    <InputMask mask="(99) 99999-9999">
+    <InputMask
+      mask="(99) 99999-9999"
+      value={formData.phone}
+      onChange={handleChange('phone')}
+    >
       {(inputProps: InputProps) => (
         <InputField
           {...inputProps}
@@ -36,6 +56,8 @@ const ContactForm: React.FC = () => (
       sx={{ mb: 3.5 }}
       variant="filled"
       label="E-mail"
+      value={formData.email}
+      onChange={handleChange('email')}
       type="email"
       required
     />

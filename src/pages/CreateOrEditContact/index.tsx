@@ -1,16 +1,88 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Box from '@mui/material/Box';
 
 import ContactForm from '../../components/ContactForm';
+import useApi from '../../hooks/useApi';
+import { ContactBody } from '../../protocols/Contact';
 
 const CreateOrEditContact: React.FC = () => {
   const navigate = useNavigate();
-  const [search, setSearch] = useState<string>('');
+  const { id } = useParams();
+  const contactId = Number(id);
+  const { contactApi } = useApi();
+  const [formData, setFormData] = useState<ContactBody>({
+    name: '',
+    phone: '',
+    email: '',
+  });
+
+  const handleChange =
+    (prop: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setFormData({ ...formData, [prop]: event.target.value });
+    };
+
+  const createContact = () => {
+    contactApi
+      .create(formData)
+      .then(() => {
+        navigate('/');
+      })
+      .catch(() =>
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Tivemos um problema, tente mais tarde',
+        }),
+      );
+  };
+
+  const editContact = () => {
+    contactApi
+      .edit(formData, contactId)
+      .then(() => {
+        navigate('/');
+      })
+      .catch(() =>
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Tivemos um problema, tente mais tarde',
+        }),
+      );
+  };
+
+  const hanldeSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    if (contactId) editContact();
+    else createContact();
+  };
+
+  useEffect(() => {
+    if (contactId) {
+      contactApi
+        .getContactInfo(contactId)
+        .then((res) => {
+          setFormData({
+            name: res.data.name,
+            phone: res.data.phone,
+            email: res.data.email,
+          });
+        })
+        .catch(() =>
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Tivemos um problema, tente mais tarde',
+          }),
+        );
+    }
+  }, []);
 
   return (
     <Container>
@@ -20,7 +92,11 @@ const CreateOrEditContact: React.FC = () => {
             <Arrow />
           </IconButton>
         </BackButtonBox>
-        <ContactForm>oiiii</ContactForm>
+        <ContactForm
+          formData={formData}
+          handleChange={handleChange}
+          onSubmit={hanldeSubmit}
+        />
       </Content>
     </Container>
   );
@@ -34,6 +110,18 @@ const Container = styled.section`
   background-color: ${(props) => props.theme.colors.background};
   display: flex;
   justify-content: center;
+  @keyframes moveInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(300px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translate(0);
+    }
+  }
+  animation: moveInUp 0.4s;
 `;
 
 const Content = styled(Box)`

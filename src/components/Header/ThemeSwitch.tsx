@@ -15,7 +15,7 @@ const ThemeSwitch: React.FC<Props> = ({ toggleTheme }) => {
   return (
     <Form>
       <FormControlLabel
-        control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
+        control={<MaterialUISwitch sx={{ m: 1 }} />}
         checked={title === 'dark'}
         onChange={toggleTheme}
         label=""

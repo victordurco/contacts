@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, DefaultTheme } from 'styled-components';
 
@@ -8,9 +8,10 @@ import light from './styles/themes/light';
 import GlobalStyle from './styles/GlobalStyle';
 import Home from './pages/Home';
 import CreateOrEditContact from './pages/CreateOrEditContact';
+import usePersistedState from './hooks/usePersistedState';
 
 const App: React.FC = () => {
-  const [theme, setTheme] = useState<DefaultTheme>(dark);
+  const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', dark);
 
   const toggleTheme = () => {
     setTheme(theme.title === 'light' ? dark : light);
@@ -23,6 +24,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Home toggleTheme={toggleTheme} />} />
           <Route path="/contato" element={<CreateOrEditContact />} />
+          <Route path="/contato/:id" element={<CreateOrEditContact />} />
           <Route path="*" element={<Home toggleTheme={toggleTheme} />} />
         </Routes>
       </BrowserRouter>
