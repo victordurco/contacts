@@ -50,7 +50,6 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-left: 30px;
 `;
 
 const SearchBox = styled(Box)`

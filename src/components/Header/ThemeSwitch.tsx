@@ -13,19 +13,17 @@ const ThemeSwitch: React.FC<Props> = ({ toggleTheme }) => {
   const { title } = useContext(ThemeContext);
 
   return (
-    <Form>
+    <FormGroup>
       <FormControlLabel
         control={<MaterialUISwitch sx={{ m: 1 }} />}
         checked={title === 'dark'}
         onChange={toggleTheme}
         label=""
       />
-    </Form>
+    </FormGroup>
   );
 };
 export default ThemeSwitch;
-
-const Form = styled(FormGroup)``;
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
