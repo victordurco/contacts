@@ -1,16 +1,32 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
+
+interface ContactProps {
+  id: number;
+  name: string;
+  phone: string;
+  email: string;
+}
 
 interface ContainerProps {
   showDetails: boolean;
 }
 
-const ContactBox: React.FC = () => {
+interface DetailTitleProps {
+  margin: string;
+}
+
+const ContactBox: React.FC<ContactProps> = ({ id, name, phone, email }) => {
   const [showDetails, setShowDetails] = useState<boolean>(false);
+  const nameArray = name.split(' ');
+  const contactInitials = (
+    nameArray[0][0] + (nameArray[1] ? nameArray[1][0] : '')
+  ).toUpperCase();
 
   return (
     <Container
@@ -18,11 +34,17 @@ const ContactBox: React.FC = () => {
       onClick={() => setShowDetails(!showDetails)}
     >
       <ViewWrapper>
-        <ContactInitials>VD</ContactInitials>
-        <Name>Victor Durço Gomes Bijos</Name>
+        <ContactInitials>{contactInitials}</ContactInitials>
+        <Name>{name}</Name>
       </ViewWrapper>
-      <Detail>Phone: (14) 99837-5261</Detail>
-      <Detail>E-mail: victordurco@gmail.com</Detail>
+      <Detail>
+        <DetailTitle margin="8px">Telefone:</DetailTitle>
+        {`${phone}`}
+      </Detail>
+      <Detail>
+        <DetailTitle margin="20px">E-mail:</DetailTitle>
+        {`${email}`}
+      </Detail>
       <ButtonsWrapper>
         <IconButton onClick={(e) => e.stopPropagation()}>
           <Edit />
@@ -36,7 +58,7 @@ const ContactBox: React.FC = () => {
 };
 export default ContactBox;
 
-const Container = styled.div<ContainerProps>`
+const Container = styled(Box)<ContainerProps>`
   width: 320px;
   height: ${(props) => (props.showDetails ? '194px' : '64px')};
   background-color: ${(props) => props.theme.colors.contactBox};
@@ -98,6 +120,16 @@ const Detail = styled.div`
   align-items: center;
   padding: 4px 11px;
   margin-bottom: 8px;
+`;
+
+const DetailTitle = styled.span<DetailTitleProps>`
+  height: inherit;
+  width: fit-content;
+  font-size: 12px;
+  color: ${(props) => props.theme.colors.text};
+  display: flex;
+  align-items: center;
+  margin-right: ${(props) => (props.margin ? props.margin : '15px')};
 `;
 
 const ButtonsWrapper = styled.div`

@@ -15,12 +15,12 @@ interface Props {
 
 const Home: React.FC<Props> = ({ toggleTheme }) => {
   const navigate = useNavigate();
-  const { contact } = useApi();
+  const { contactApi } = useApi();
   const [search, setSearch] = useState<string>('');
   const [contacts, setContacts] = useState<Contact[]>([]);
 
   useEffect(() => {
-    contact
+    contactApi
       .getAllContacts()
       .then((res) => {
         setContacts(res.data);
@@ -32,8 +32,14 @@ const Home: React.FC<Props> = ({ toggleTheme }) => {
     <>
       <Header toggleTheme={toggleTheme}>Hello World</Header>
       <Content>
-        {contacts.map(() => (
-          <ContactBox />
+        {contacts.map((contact) => (
+          <ContactBox
+            key={contact.id}
+            id={contact.id}
+            name={contact.name}
+            phone={contact.phone}
+            email={contact.email}
+          />
         ))}
         <AddButton onClick={() => navigate('/contato')}>+</AddButton>
       </Content>
