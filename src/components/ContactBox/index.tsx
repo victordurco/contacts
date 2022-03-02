@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
+
+import useApi from '../../hooks/useApi';
 
 interface ContactProps {
   id: number;
@@ -24,11 +27,42 @@ interface DetailTitleProps {
 
 const ContactBox: React.FC<ContactProps> = ({ id, name, phone, email }) => {
   const navigate = useNavigate();
+  const { contactApi } = useApi();
   const [showDetails, setShowDetails] = useState<boolean>(false);
   const nameArray = name.split(' ');
   const contactInitials = (
     nameArray[0][0] + (nameArray[1] ? nameArray[1][0] : '')
   ).toUpperCase();
+
+  const deleteContact = () => {
+    Swal.fire({
+      title: 'Deletar contato?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, deletar!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        contactApi
+          .deleteContact(id)
+          .then(() => {
+            Swal.fire('Deletado!', 'O contato foi deletado', 'success').then(
+              () => {
+                window.location.reload();
+              },
+            );
+          })
+          .catch(() =>
+            Swal.fire(
+              'Oops...',
+              'Tivemos um problema ao deletar contato',
+              'error',
+            ),
+          );
+      }
+    });
+  };
 
   return (
     <Container
@@ -56,7 +90,12 @@ const ContactBox: React.FC<ContactProps> = ({ id, name, phone, email }) => {
         >
           <Edit />
         </IconButton>
-        <IconButton onClick={(e) => e.stopPropagation()}>
+        <IconButton
+          onClick={(e) => {
+            e.stopPropagation();
+            deleteContact();
+          }}
+        >
           <Delete />
         </IconButton>
       </ButtonsWrapper>

@@ -29,7 +29,7 @@ const CreateOrEditContact: React.FC = () => {
   const createContact = () => {
     contactApi
       .create(formData)
-      .then((res) => {
+      .then(() => {
         navigate('/');
       })
       .catch((err) => console.error(err));
@@ -38,7 +38,7 @@ const CreateOrEditContact: React.FC = () => {
   const editContact = () => {
     contactApi
       .edit(formData, contactId)
-      .then((res) => {
+      .then(() => {
         navigate('/');
       })
       .catch((err) => console.error(err));
