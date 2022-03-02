@@ -3,7 +3,7 @@
 afterEach(() => {
   cy.request({
     method: 'DELETE',
-    url: 'http://localhost:4000/contacts',
+    url: 'https://pagaleve-contacts-api.herokuapp.com/contacts',
     body: {
       email: 'emailteste@gmail.com',
     },
