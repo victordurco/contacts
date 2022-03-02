@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -22,6 +23,7 @@ interface DetailTitleProps {
 }
 
 const ContactBox: React.FC<ContactProps> = ({ id, name, phone, email }) => {
+  const navigate = useNavigate();
   const [showDetails, setShowDetails] = useState<boolean>(false);
   const nameArray = name.split(' ');
   const contactInitials = (
@@ -31,7 +33,7 @@ const ContactBox: React.FC<ContactProps> = ({ id, name, phone, email }) => {
   return (
     <Container
       showDetails={showDetails}
-      onClick={() => setShowDetails(!showDetails)}
+      onClick={() => setShowDetails((value) => !value)}
     >
       <ViewWrapper>
         <ContactInitials>{contactInitials}</ContactInitials>
@@ -46,7 +48,12 @@ const ContactBox: React.FC<ContactProps> = ({ id, name, phone, email }) => {
         {`${email}`}
       </Detail>
       <ButtonsWrapper>
-        <IconButton onClick={(e) => e.stopPropagation()}>
+        <IconButton
+          onClick={(e) => {
+            e.stopPropagation();
+            navigate(`/contato/${id}`);
+          }}
+        >
           <Edit />
         </IconButton>
         <IconButton onClick={(e) => e.stopPropagation()}>

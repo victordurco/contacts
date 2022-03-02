@@ -9,6 +9,10 @@ export default class ContactApi {
     return api.post("/contacts", body );
   }
 
+  edit(body: ContactBody, id: number): Promise<AxiosResponse> {
+    return api.put(`/contacts/${id}`, body );
+  }
+
   getAllContacts(): Promise<AxiosResponse>  {
     return api.get("/contacts");
   }

@@ -23,6 +23,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Home toggleTheme={toggleTheme} />} />
           <Route path="/contato" element={<CreateOrEditContact />} />
+          <Route path="/contato/:id" element={<CreateOrEditContact />} />
           <Route path="*" element={<Home toggleTheme={toggleTheme} />} />
         </Routes>
       </BrowserRouter>

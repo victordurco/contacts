@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -12,6 +12,8 @@ import { ContactBody } from '../../protocols/Contact';
 
 const CreateOrEditContact: React.FC = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const contactId = Number(id);
   const { contactApi } = useApi();
   const [formData, setFormData] = useState<ContactBody>({
     name: '',
@@ -33,9 +35,19 @@ const CreateOrEditContact: React.FC = () => {
       .catch((err) => console.error(err));
   };
 
+  const editContact = () => {
+    contactApi
+      .edit(formData, contactId)
+      .then((res) => {
+        navigate('/');
+      })
+      .catch((err) => console.error(err));
+  };
+
   const hanldeSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
-    createContact();
+    if (contactId) editContact();
+    else createContact();
   };
 
   return (
