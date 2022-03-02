@@ -5,6 +5,8 @@ import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Box from '@mui/material/Box';
 
+import ContactForm from '../../components/ContactForm';
+
 const CreateOrEditContact: React.FC = () => {
   const [search, setSearch] = useState<string>('');
 
@@ -16,6 +18,7 @@ const CreateOrEditContact: React.FC = () => {
             <Arrow />
           </IconButton>
         </BackButtonBox>
+        <ContactForm>oiiii</ContactForm>
       </Content>
     </Container>
   );
@@ -34,7 +37,9 @@ const Container = styled.section`
 const Content = styled(Box)`
   width: 100%;
   max-width: 390px;
-  padding-top: 20px;
+  padding: 40px 23px 0 23px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Arrow = styled(ArrowBackIcon)`
@@ -50,4 +55,5 @@ const BackButtonBox = styled(Box)`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 60px;
 `;
