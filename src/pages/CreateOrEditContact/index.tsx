@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -8,13 +9,14 @@ import Box from '@mui/material/Box';
 import ContactForm from '../../components/ContactForm';
 
 const CreateOrEditContact: React.FC = () => {
+  const navigate = useNavigate();
   const [search, setSearch] = useState<string>('');
 
   return (
     <Container>
       <Content>
         <BackButtonBox>
-          <IconButton>
+          <IconButton onClick={() => navigate('/')}>
             <Arrow />
           </IconButton>
         </BackButtonBox>

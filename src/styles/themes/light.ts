@@ -4,7 +4,7 @@ export default {
    colors: {
       header: "#3B72E5",
       background: "#fff",
-      searchBar: "#8ea8e0fa",
+      searchBar: "#e5e5e5",
       contactBox: "#e5e5e5",
       contactBoxBorder: "#333",
       contactInitials: "#959595",

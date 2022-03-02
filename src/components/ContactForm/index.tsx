@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import InputMask from 'react-input-mask';
 
+import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { TextField } from '@mui/material';
 
@@ -38,6 +39,14 @@ const ContactForm: React.FC = () => (
       type="email"
       required
     />
+    <SaveButton
+      type="submit"
+      variant="contained"
+      color="success"
+      sx={{ mt: 5 }}
+    >
+      Salvar
+    </SaveButton>
   </Form>
 );
 
@@ -53,8 +62,13 @@ const Form = styled(Box)`
 `;
 
 const InputField = styled(TextField)`
-  width: 235px;
+  width: 245px;
   border-radius: 5px;
   background-color: ${(props) => props.theme.colors.searchBar};
   color:background-color: ${(props) => props.theme.colors.text};
+`;
+
+const SaveButton = styled(Button)`
+  width: 146px;
+  height: 52px;
 `;
