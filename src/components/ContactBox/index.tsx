@@ -142,6 +142,7 @@ const ContactInitials = styled.div`
   align-items: center;
   font-weight: bold;
   letter-spacing: 1px;
+  white-space: nowrap;
 `;
 
 const Name = styled.span`
@@ -150,6 +151,9 @@ const Name = styled.span`
   margin-left: 12px;
   text-align: center;
   line-height: 40px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const Detail = styled.div`

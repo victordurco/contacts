@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
@@ -23,12 +24,22 @@ const Home: React.FC<Props> = ({ toggleTheme }) => {
   const [contacts, setContacts] = useState<ContactFromApi[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
+  const sortContactsByName = (contactsArray: ContactFromApi[]) => {
+    const sorted = contactsArray.sort((a, b) => {
+      const textA = a.name.toUpperCase();
+      const textB = b.name.toUpperCase();
+      // eslint-disable-next-line no-nested-ternary
+      return textA < textB ? -1 : textA > textB ? 1 : 0;
+    });
+    return sorted;
+  };
+
   const loadContactsFromApi = () => {
     setLoading(true);
     contactApi
       .getAllContacts()
       .then((res) => {
-        setContacts(res.data);
+        setContacts(sortContactsByName(res.data));
         setLoading(false);
       })
       .catch(() => {
