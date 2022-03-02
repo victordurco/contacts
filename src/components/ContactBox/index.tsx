@@ -37,11 +37,11 @@ const ContactBox: React.FC<ContactProps> = ({ id, name, phone, email }) => {
         <ContactInitials>{contactInitials}</ContactInitials>
         <Name>{name}</Name>
       </ViewWrapper>
-      <Detail>
+      <Detail onClick={(e) => e.stopPropagation()}>
         <DetailTitle margin="8px">Telefone:</DetailTitle>
         {`${phone}`}
       </Detail>
-      <Detail>
+      <Detail onClick={(e) => e.stopPropagation()}>
         <DetailTitle margin="20px">E-mail:</DetailTitle>
         {`${email}`}
       </Detail>
@@ -108,8 +108,8 @@ const Name = styled.span`
 
 const Detail = styled.div`
   width: 227px;
-  height: 23px;
-  font-size: 12px;
+  height: 30px;
+  font-size: 13px;
   color: ${(props) => props.theme.colors.text};
   font-weight: bold;
   background-color: ${(props) => props.theme.colors.infoBox};
@@ -120,16 +120,19 @@ const Detail = styled.div`
   align-items: center;
   padding: 4px 11px;
   margin-bottom: 8px;
+  overflow-x: scroll;
+  overflow-y: hidden;
 `;
 
 const DetailTitle = styled.span<DetailTitleProps>`
   height: inherit;
   width: fit-content;
-  font-size: 12px;
+  font-size: inherit;
   color: ${(props) => props.theme.colors.text};
   display: flex;
   align-items: center;
   margin-right: ${(props) => (props.margin ? props.margin : '15px')};
+  white-space: nowrap;
 `;
 
 const ButtonsWrapper = styled.div`

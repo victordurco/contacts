@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { BallTriangle } from 'react-loader-spinner';
 
 import Box from '@mui/material/Box';
 
@@ -18,12 +19,14 @@ const Home: React.FC<Props> = ({ toggleTheme }) => {
   const { contactApi } = useApi();
   const [search, setSearch] = useState<string>('');
   const [contacts, setContacts] = useState<ContactFromApi[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const loadContactsFromApi = () => {
     contactApi
       .getAllContacts()
       .then((res) => {
         setContacts(res.data);
+        setLoading(false);
       })
       .catch((err) => console.error(err));
   };
@@ -34,17 +37,23 @@ const Home: React.FC<Props> = ({ toggleTheme }) => {
 
   return (
     <>
-      <Header toggleTheme={toggleTheme}>Hello World</Header>
+      <Header toggleTheme={toggleTheme} />
       <Content>
-        {contacts.map((contact) => (
-          <ContactBox
-            key={contact.id}
-            id={contact.id}
-            name={contact.name}
-            phone={contact.phone}
-            email={contact.email}
-          />
-        ))}
+        {loading ? (
+          <LoadingWrapper>
+            <BallTriangle color="#3B72E5" height={80} width={80} />
+          </LoadingWrapper>
+        ) : (
+          contacts.map((contact) => (
+            <ContactBox
+              key={contact.id}
+              id={contact.id}
+              name={contact.name}
+              phone={contact.phone}
+              email={contact.email}
+            />
+          ))
+        )}
         <AddButton onClick={() => navigate('/contato')}>+</AddButton>
       </Content>
     </>
@@ -78,4 +87,12 @@ const AddButton = styled(Box)`
   bottom: 20px;
   right: 24px;
   cursor: pointer;
+`;
+
+const LoadingWrapper = styled.div`
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
